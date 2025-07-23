@@ -1,78 +1,45 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
 
-function AddSkillForm() {
-  const navigate = useNavigate();
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
+function AddSkillForm({ onAddSkill }) {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    category: '',
-    availability: '',
-    skillLevel: '',
-    location: ''
+    name: "",
+    description: "",
   });
 
-  if (!currentUser) {
-    return <p className="text-center text-red-500 mt-10">You must be logged in to add a skill.</p>;
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-
-    const newSkill = {
-      ...formData,
-      userId: currentUser.id,
-      userName: currentUser.username
-    };
-
-    try {
-      const res = await fetch("http://localhost:3001/skills", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newSkill)
-      });
-
-      if (res.ok) {
-        setFormData({
-          title: '',
-          description: '',
-          category: '',
-          availability: '',
-          skillLevel: '',
-          location: ''
-        });
-        navigate("/skills");
-      }
-    } catch (err) {
-      console.error("Error posting skill:", err);
-    }
-  };
+    fetch("http://localhost:3000/skills", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((r) => r.json())
+      .then(onAddSkill);
+    setFormData({ name: "", description: "" });
+  }
 
   return (
-    <div className="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Add a New Skill</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" name="title" placeholder="Skill Title" value={formData.title} onChange={handleChange} required className="w-full p-2 border rounded" />
-        <textarea name="description" placeholder="Skill Description" value={formData.description} onChange={handleChange} required className="w-full p-2 border rounded"></textarea>
-        <input type="text" name="category" placeholder="Category (e.g. Tech, Art)" value={formData.category} onChange={handleChange} required className="w-full p-2 border rounded" />
-        <input type="text" name="availability" placeholder="Availability (e.g. Weekends)" value={formData.availability} onChange={handleChange} required className="w-full p-2 border rounded" />
-        <input type="text" name="skillLevel" placeholder="Skill Level (e.g. Beginner)" value={formData.skillLevel} onChange={handleChange} required className="w-full p-2 border rounded" />
-        <input type="text" name="location" placeholder="Location (e.g. Kilimani)" value={formData.location} onChange={handleChange} required className="w-full p-2 border rounded" />
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Add Skill</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        name="name"
+        placeholder="Skill Name"
+        value={formData.name}
+        onChange={handleChange}
+      />
+      <textarea
+        name="description"
+        placeholder="Skill Description"
+        value={formData.description}
+        onChange={handleChange}
+      />
+      <button type="submit">Add Skill</button>
+    </form>
   );
 }
 
