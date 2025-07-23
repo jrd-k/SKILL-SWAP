@@ -1,0 +1,14 @@
+{
+  "skills": [
+    { "id": 1, "name": "React", "description": "Build UIs", "userId": 1 },
+    { "id": 2, "name": "Node.js", "description": "Backend JS", "userId": 1 },
+    { "id": 3, "name": "Python", "description": "Scripting and backend", "userId": 2 }
+  ],
+  "users": [
+    { "id": 1, "name": "Arnold" },
+    { "id": 2, "name": "Jane" }
+  ],
+  "requests": [
+    { "id": 1, "requesterId": 1, "skillId": 3 }
+  ]
+}
