@@ -1,23 +1,35 @@
-// src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import SkillList from "./components/SkillList";
-import SkillDetail from "./components/SkillDetail";
-import AddSkillForm from "./components/AddSkillForm";
-import Dashboard from "./components/Dashboard";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Skills from './pages/Skills';
+import AddSkill from './pages/AddSkill';
+import Dashboard from './pages/Dashboard';
+import Register from './pages/Register';
+import Login from './pages/Login';
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/skills" element={<SkillList />} />
-        <Route path="/skills/:id" element={<SkillDetail />} />
-        <Route path="/add-skill" element={<AddSkillForm />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
+      <nav style={{ padding: '1rem', background: '#eee' }}>
+        <Link to="/" style={{ marginRight: 10 }}>Home</Link>
+        <Link to="/skills" style={{ marginRight: 10 }}>Skills</Link>
+        <Link to="/add-skill" style={{ marginRight: 10 }}>Add Skill</Link>
+        <Link to="/dashboard" style={{ marginRight: 10 }}>Dashboard</Link>
+        <Link to="/register" style={{ marginRight: 10 }}>Register</Link>
+        <Link to="/login">Login</Link>
+      </nav>
+
+      <div style={{ padding: '1rem' }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/add-skill" element={<AddSkill />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
     </Router>
   );
 }
