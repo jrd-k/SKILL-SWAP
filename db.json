@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Arnold",
+      "location": "Nairobi",
+      "email": "arnold@example.com"
+    },
+    {
+      "id": 2,
+      "name": "Jane",
+      "location": "Mombasa",
+      "email": "jane@example.com"
+    }
+  ],
+  "skills": [
+    {
+      "id": 1,
+      "title": "Web Development",
+      "category": "Technology",
+      "skillLevel": "Intermediate",
+      "description": "I can build websites using HTML, CSS, JavaScript and React.",
+      "location": "Nairobi",
+      "availability": "Weekends",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "title": "Graphic Design",
+      "category": "Design",
+      "skillLevel": "Beginner",
+      "description": "I design logos and posters using Canva.",
+      "location": "Mombasa",
+      "availability": "Evenings",
+      "userId": 2
+    }
+  ],
+  "swapRequests": [
+    {
+      "id": 1,
+      "fromUserId": 2,
+      "toUserId": 1,
+      "skillTitle": "Web Development",
+      "status": "pending"
+    }
+  ]
+}
